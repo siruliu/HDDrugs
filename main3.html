@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>MAR</title>
+</head>
+
+
+<body >
+<div id="title">Select a patient</div>
+<div id="patientList">
+</div>
+<div id="patientInfo">
+</div>
+
+<div id="medTable">
+
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+    var patients_ID = [];
+    var medications = [];
+    var hadrugs=[];
+    var patientInfo = [];
+
+
+
+    $.getJSON( "patient.json", function( patients ) {
+
+        console.log(patients.entry);
+        for (var i=0; i<patients.entry.length;i++){
+            if (patients.entry[i].resource.resourceType == "Patient"){
+                patients_ID.push(patients.entry[i].resource.id);
+                patientInfo.push({
+                    ID:patients.entry[i].resource.id,
+                    name:patients.entry[i].resource.name[0].family+", "+patients.entry[i].resource.name[0].given[0],
+                    gender: patients.entry[i].resource.gender,
+                    DOB:patients.entry[i].resource.birthDate,
+                    address: patients.entry[i].resource.address[0].line[0]+'\n'+patients.entry[i].resource.address[0].city+', '
+                    +patients.entry[i].resource.address[0].state+', '+patients.entry[i].resource.address[0].country+', '+
+                        patients.entry[i].resource.address[0].postalCode
+
+
+                });
+                medications.push({
+                    patient_id: patients.entry[i].resource.id,
+                    medication:[]
+                });
+            }
+        }
+        for (var i=0; i<patients.entry.length;i++){
+            if (patients.entry[i].resource.resourceType == "MedicationAdministration"){
+                for (var j=0; j<medications.length;j++) {
+                    hainfo="";
+                    if (medications[j].patient_id ==patients.entry[i].resource.subject.reference.split('/')[1]){
+                        var medcode = patients.entry[i].resource.medicationCodeableConcept.coding[0].code;
+                        var incode = rxcuiIN(medcode);
+                        var hainfo;
+                        for(var k = 0; k< hadrugs.length; k++) {
+                            if (hadrugs[k]["RxNorm\ (RxCUI)"] == incode) {
+                                hainfo = hadrugs[k];
+                                break;
+                            }
+                        }
+
+                        medications[j].medication.push({
+                            effectiveTime: patients.entry[i].resource.effectiveDateTime,
+                            medicationCode: patients.entry[i].resource.medicationCodeableConcept,
+                            dosage: patients.entry[i].resource.dosage,
+
+                            haDrugInfo:hainfo
+                        });
+                    }
+
+                }
+
+            }
+        }
+    });
+
+
+    console.log(patients_ID);
+    console.log(medications);
+
+    // This function can link the IN RXCUI according the medication RXCUI.
+
+    function rxcuiIN(rxcuiCode){
+        var url = "https://rxnav.nlm.nih.gov/REST/rxcui/"+rxcuiCode+"/related.json?tty=IN";
+        var INcode;
+
+        $.ajax({
+            async: false,
+            url: url,
+            success: function(rxrep) {
+                INcode = rxrep.relatedGroup.conceptGroup[0].conceptProperties[0].rxcui;
+            }
+        });
+
+        return INcode;
+
+    }
+
+    $.ajax({
+        async: false,
+        url: "hadrugs.json",
+        success: function(hadrug) {
+            hadrugs=hadrug;
+        }
+    });
+
+
+    // Builds the HTML Table out of myList.
+    function buildHtmlTable(patientID) {
+        console.log("call function");
+        var medicationInfo_pp;
+
+        for (var j=0; j<medications.length;j++) {
+            if (medications[j].patient_id == patientID){
+                medicationInfo_pp = medications[j].medication; // an array contains all medications infomation for that patient
+                break;
+            }
+        }
+
+        console.log(medicationInfo_pp);
+        $('#medTable').append('<table id="jsonTable"><thead><tr></tr></thead><tbody></tbody></table>');
+        $('#jsonTable thead tr').append('<th> Medication</th><th> Dosage</th><th> Route</th><th> Admin Time</th>');
+
+
+
+
+        for (var i = 0; i < medicationInfo_pp.length; i++) {
+            var row$ = $('<tr/>');
+            var cellValue;
+
+            if(medicationInfo_pp[i].haDrugInfo!=""){
+                cellValue = medicationInfo_pp[i].medicationCode.coding[0].display;
+                var td = $('<td class = "medname"/>');
+                var glovesID = 'gloves_'+i;
+                td.html('<img class="glove" id='+glovesID+' src="Picture1.png" onclick = "showHaInfo(this.id)" >'+cellValue);
+                row$.append(td);
+            }
+            else{
+                cellValue = medicationInfo_pp[i].medicationCode.coding[0].display;
+                row$.append($('<td class = "medname"/>').html(cellValue));
+
+            }
+
+
+            cellValue = medicationInfo_pp[i].dosage.dose.value;
+            row$.append($('<td class = "dosage"/>').html(cellValue));
+            cellValue = medicationInfo_pp[i].dosage.route.coding[0].display;
+            row$.append($('<td class = "route"/>').html(cellValue));
+            cellValue = medicationInfo_pp[i].effectiveTime.split('.')[0];
+            row$.append($('<td class = "time"/>').html(cellValue));
+            $('#jsonTable tbody').append(row$);
+
+            if (medicationInfo_pp[i].haDrugInfo!=""){
+                //console.log("find ha");
+                var PPEID = 'PPE_'+i;
+                var nioshID = 'niosh_'+i;
+
+                var row$ = $('<tr id ='+PPEID+'/>');
+                var cellValue = "PPE: Single pair of gloves";
+                row$.append($('<td class = "PPE" colspan="4"/>').html(cellValue));
+                $('#jsonTable tbody').append(row$);
+                row$.hide();
+
+                var row$ = $('<tr id ='+nioshID+'/>');
+                var cellValue = "NIOSH 2016: "+ medicationInfo_pp[i].haDrugInfo["Supplemental information"]+" ";
+                cellValue = cellValue+"<div style='position:absolute;left'></div><a href="+medicationInfo_pp[i].haDrugInfo["DailyMed"]+">DaliyMed</a>"+" <a href="+medicationInfo_pp[i].haDrugInfo["DrugBank"]+">DrugBank</a> </div>";
+                row$.append($('<td class = "niosh" colspan="4"/>').html(cellValue));
+                $('#jsonTable tbody').append(row$);
+                row$.hide();
+
+
+            }
+        }
+    }
+
+    function showHaInfo(id){
+        var index = id.split('_')[1];
+        var PPEID = 'PPE_'+index;
+        var nioshID = 'niosh_'+index;
+
+
+        var divobj = document.getElementById(PPEID);
+        if(divobj.style.display =='none'){
+            divobj.style.display = 'table-row';
+            document.getElementById(nioshID).style.display = 'table-row';
+        }
+        else{
+            divobj.style.display = 'none';
+            document.getElementById(nioshID).style.display = 'none';
+        }
+
+    }
+
+    function buildPatientInfo(patientID){
+        var patientInfo_pp;
+        for (var j=0; j<patientInfo.length;j++) {
+            if (patientInfo[j].ID == patientID){
+                patientInfo_pp = patientInfo[j]; // an array contains all patient related information for that patient
+                break;
+            }
+        }
+        console.log(patientInfo_pp);
+        $('#patientInfo').append('<div id="jsonDiv"></div>');
+
+        $('#jsonDiv').append($('<div class = "name"/>').html(patientInfo_pp.name+' ('+patientInfo_pp.gender+')'));
+        $('#jsonDiv').append($('<div class = "DOB"/>').html(patientInfo_pp.DOB));
+        $('#jsonDiv').append($('<div class = "address"/>').html(patientInfo_pp.address));
+
+
+    }
+
+
+
+
+    function createPatientList(){
+        $('#patientList').append("<select id='myselect'></select>");
+        $.each(Object.keys(patients_ID), function(index, key){
+            $('#myselect').append('<option>' + patients_ID[key] + '</option>');
+        });
+
+    }
+
+
+
+    $(document).ready(function(){
+        createPatientList();
+        $('#myselect').on('change', function() {
+            $('#jsonTable').remove();
+            $('#jsonDiv').remove();
+            var selectedval = $(this).val();
+            console.log(selectedval);
+            buildPatientInfo(selectedval);
+            buildHtmlTable(selectedval);
+
+        });
+
+
+    });
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+
+</html>
+
+

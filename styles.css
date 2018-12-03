@@ -1,0 +1,59 @@
+table, th, td {
+    border: 1px solid black;
+}
+
+
+#jsonTable {
+    width: 700px;
+}
+
+.medname{
+    width:50%;
+
+}
+
+.dosage{
+    width:10%;
+
+}
+
+.route{
+    width:15%;
+
+}
+
+.time{
+    width:25%;
+
+}
+.PPE{
+    width: 100%;
+    background-color:yellow;
+
+
+}
+.niosh{
+    width: 100%;
+    background-color:lightgray;
+
+}
+
+img{
+    width:20px;
+    height:20px;
+}
+
+#title,#patientList{
+    display: inline;
+}
+
+#patientInfo{
+    margin:5px;
+    background-color:lightblue;
+    width:400px;
+}
+
+#title{
+    margin:5px;
+}
+

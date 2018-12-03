@@ -1,0 +1,316 @@
+{
+  "resourceType": "Bundle",
+  "id": "cf-1543515160643",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>nonha Lisinopril 2969<a name='mm'/></div>"
+        },
+        "id": "cf-1543859957030",
+        "subject": {
+          "reference": "Patient/cf-1542759532969"
+        },
+        "status": "in-progress",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "code": "311353",
+              "system": "https://mor.nlm.nih.gov/RxNav",
+              "display": "Lisinopril 2.5 MG Oral Tablet"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-21T17:00:00.000Z",
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "26643006",
+                "system": "http://snomed.info/sct",
+                "display": "Oral route"
+              }
+            ]
+          },
+          "dose": {
+            "value": 2
+          }
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>ha bosutinib 8490<a name='mm'/></div>"
+        },
+        "id": "cf-1543518233887",
+        "subject": {
+          "reference": "Patient/cf-1543097748940"
+        },
+        "status": "in-progress",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "code": "1307624",
+              "system": "https://mor.nlm.nih.gov/RxNav",
+              "display": "Bosutinib 100 MG Oral Tablet"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-24T07:00:00.000Z",
+        "dosage": {
+          "dose": {
+            "value": 2
+          },
+          "route": {
+            "coding": [
+              {
+                "code": "26643006",
+                "system": "http://snomed.info/sct",
+                "display": "Oral route"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "cf-1542757745840",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2018-11-21T00:22:14.194+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>ha finastride 2969<a name='mm'/></div>"
+        },
+        "status": "in-progress",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "https://mor.nlm.nih.gov/RxNav",
+              "code": "200172",
+              "display": "Finasteride 1 MG Oral Tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/cf-1542759532969"
+        },
+        "effectiveDateTime": "2018-11-21T18:30:00.000Z",
+        "dosage": {
+          "dose": {
+            "value": 3
+          },
+          "route": {
+            "coding": [
+              {
+                "code": "26643006",
+                "system": "http://snomed.info/sct",
+                "display": "Oral route"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "cf-1543097796446",
+        "meta": {
+          "versionId": "3",
+          "lastUpdated": "2018-11-26T03:13:33.438+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>non ha Ibuprofen 8490<a name='mm'/></div>"
+        },
+        "status": "in-progress",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "https://mor.nlm.nih.gov/RxNav",
+              "code": "566095",
+              "display": "Ibuprofen 800 MG [Motrin]"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/cf-1543097748940"
+        },
+        "effectiveDateTime": "2018-11-24T08:17:00.000Z",
+        "dosage": {
+          "dose": {
+            "value": 1
+          },
+          "route": {
+            "coding": [
+              {
+                "code": "26643006",
+                "system": "http://snomed.info/sct",
+                "display": "Oral route"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>non ha asprin 2969<a name='mm'/></div>"
+        },
+        "id": "cf-1543516092033",
+        "subject": {
+          "reference": "Patient/cf-1542759532969"
+        },
+        "status": "in-progress",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "code": "246461",
+              "system": "https://mor.nlm.nih.gov/RxNav",
+              "display": "Aspirin 100 MG Oral Tablet"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-21T19:00:00.000Z",
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "26643006",
+                "system": "http://snomed.info/sct",
+                "display": "Oral route"
+              }
+            ]
+          },
+          "dose": {
+            "value": 2
+          }
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>ha chlorambucil 8490<a name='mm'/></div>"
+        },
+        "id": "cf-1543859181485",
+        "subject": {
+          "reference": "Patient/cf-1543097748940"
+        },
+        "status": "in-progress",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "code": "197462",
+              "system": "https://mor.nlm.nih.gov/RxNav",
+              "display": "Chlorambucil 2 MG Oral Tablet"
+            }
+          ]
+        },
+        "dosage": {
+          "dose": {
+            "value": 1
+          },
+          "route": {
+            "coding": [
+              {
+                "code": "26643006",
+                "system": "http://snomed.info/sct",
+                "display": "Oral route"
+              }
+            ]
+          }
+        },
+        "effectiveDateTime": "2018-11-24T10:25:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "cf-1543097748940",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2018-11-26T03:13:33.431+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Test Patient 8940<a name='mm'/></div>"
+        },
+        "name": [
+          {
+            "use": "usual",
+            "given": [
+              "John"
+            ],
+            "family": "Morris"
+          }
+        ],
+        "birthDate": "1940-03-15",
+        "gender": "male",
+        "address": [
+          {
+            "line": [
+              "2 ELM Street"
+            ],
+            "city": "Salt Lake City",
+            "state": "UT",
+            "postalCode": "84108",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "cf-1542759532969",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2018-11-21T00:22:14.194+00:00"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns='http://www.w3.org/1999/xhtml'>Test Patient 2969<a name='mm'/></div>"
+        },
+        "name": [
+
+          {
+            "given": [
+              "Jack"
+            ],
+            "family": "Smith"
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "1 ELM STREET"
+            ],
+            "city": "Salt Lake City",
+            "state": "UT",
+            "postalCode": "84108",
+            "country": "US"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1972-08-14"
+      }
+    }
+  ]
+}
